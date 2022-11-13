@@ -48,13 +48,14 @@ class LandingScreen extends StatelessWidget {
                   double.infinity,
                   Adapt.setHeight(55),
                 ),
+                elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: Corners.s10Border,
                 ),
               ),
               child: Text(
                 "Login".toUpperCase(),
-                style: TextStyles.body1,
+                style: TextStyles.body2,
               ),
             ),
           ),
@@ -82,7 +83,7 @@ class LandingScreen extends StatelessWidget {
               ),
               child: Text(
                 "Signup".toUpperCase(),
-                style: TextStyles.body1.copyWith(
+                style: TextStyles.body2.copyWith(
                   color: AppTheme.of(context).primaryLight,
                 ),
               ),

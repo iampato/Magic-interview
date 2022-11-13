@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:magic/src/core/core.dart';
-import 'package:magic/src/features/onboarding/widgets/custom_text_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class AddUserScreen extends StatefulWidget {
+  const AddUserScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<AddUserScreen> createState() => _AddUserScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _AddUserScreenState extends State<AddUserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: EdgeInsets.only(left: Adapt.setWidth(2)),
               child: Text(
-                'Sign in to continue'.toUpperCase(),
+                'Add user'.toUpperCase(),
                 style: TextStyles.h5.copyWith(
                   fontWeight: FontWeight.w900,
                 ),
@@ -41,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: Adapt.setHeight(35)),
             TextFormField(
               decoration: InputDecoration(
-                labelText: 'Email Address',
+                labelText: 'Full name',
                 filled: true,
                 fillColor: AppTheme.of(context).surface,
                 contentPadding: EdgeInsets.symmetric(
@@ -58,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: Adapt.setHeight(10)),
             TextFormField(
               decoration: InputDecoration(
-                labelText: 'Password',
+                labelText: 'Email Address',
                 filled: true,
                 fillColor: AppTheme.of(context).surface,
                 contentPadding: EdgeInsets.symmetric(
@@ -73,21 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: Adapt.setHeight(22)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CustomTextButton(
-                  onPressed: () {
-                    context.pushNamed("forgot");
-                  },
-                  text: 'Forgot Password?',
-                ),
-              ],
-            ),
-            SizedBox(height: Adapt.setHeight(5)),
             ElevatedButton(
               onPressed: () {
-                context.pushNamed("account");
+                Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(
@@ -99,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               child: Text(
-                "Login".toUpperCase(),
+                "Add".toUpperCase(),
                 style: TextStyles.body1,
               ),
             ),
