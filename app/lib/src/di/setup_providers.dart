@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:magic/src/cubit/theme/theme_cubit.dart';
-import 'package:magic/src/repository/shared_preference.dart';
+import 'package:magic/src/core/shared_preference.dart';
 
 Widget setupProviders(Widget child) {
   return MultiBlocProvider(

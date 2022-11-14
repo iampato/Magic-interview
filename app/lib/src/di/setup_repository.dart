@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:magic/src/repository/shared_preference.dart';
+import 'package:magic/src/core/shared_preference.dart';
 
 setupRepository() {
   return [

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:magic/src/repository/shared_preference.dart';
+import 'package:magic/src/core/shared_preference.dart';
 
 part 'theme_state.dart';
 
