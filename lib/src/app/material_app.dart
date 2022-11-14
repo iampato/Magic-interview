@@ -32,6 +32,9 @@ class _MyAppState extends State<MyApp> {
                     ? Colors.black
                     : Colors.white,
               ),
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: AppTheme.of(context).primary,
+              ),
               scaffoldBackgroundColor: getTheme(theme) == Brightness.dark
                   ? null
                   : AppTheme.theme(getTheme(theme)).bg1,
