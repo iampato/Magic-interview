@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:magic/src/core/core.dart';
-import 'package:magic/src/utils/horizontal_stepper.dart';
+import 'package:magic/src/widgets/horizontal_stepper.dart';
 
 class CreateWorkoutScreen extends StatefulWidget {
   const CreateWorkoutScreen({Key? key}) : super(key: key);
