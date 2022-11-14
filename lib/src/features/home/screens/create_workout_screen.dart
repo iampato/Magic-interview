@@ -268,8 +268,6 @@ class SelectSetAndReps extends StatelessWidget {
               ),
             ),
             onPressed: () async {
-              // close the keyboard
-              FocusScope.of(context).unfocus();
               // go to the next page
               pageController.nextPage(
                 duration: const Duration(milliseconds: 300),
@@ -404,10 +402,11 @@ class CreateWorkoutStatus extends StatelessWidget {
         Center(
           child: Lottie.asset(
             Assets.success,
+            repeat: false,
             height: Adapt.setHeight(160),
           ),
         ),
-        SizedBox(height: Adapt.setHeight(20)),
+        SizedBox(height: Adapt.setHeight(30)),
         Text(
           "Success",
           style: TextStyles.h6,
@@ -417,10 +416,14 @@ class CreateWorkoutStatus extends StatelessWidget {
             horizontal: Adapt.setWidth(15),
             vertical: Adapt.setHeight(10),
           ),
-          child: Text(
-            "You have successfully created a workout, please check your workout page to see your new workout",
-            textAlign: TextAlign.center,
-            style: TextStyles.body3,
+          child: AnimatedOpacity(
+            opacity: 0.65,
+            duration: Durations.fastest,
+            child: Text(
+              "You have successfully created a workout, please check your workout page to see your new workout",
+              textAlign: TextAlign.center,
+              style: TextStyles.body3,
+            ),
           ),
         ),
         Padding(
@@ -430,8 +433,8 @@ class CreateWorkoutStatus extends StatelessWidget {
           ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(
-                double.infinity,
+              minimumSize: Size(
+                Adapt.screenW() * 0.8,
                 45,
               ),
               shape: RoundedRectangleBorder(
