@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 import 'package:magic/src/core/core.dart';
@@ -18,7 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppTheme.of(context).surface,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          context.pushNamed("create-workout");
+        },
         label: const Text('Create'),
         icon: const Icon(Icons.add),
       ),
@@ -66,24 +69,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          width: 1.5,
-                          color: AppTheme.of(context).surface!,
+                    GestureDetector(
+                      onTap: () {
+                        context.pushNamed('profile');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 1.5,
+                            color: AppTheme.of(context).surface!,
+                          ),
                         ),
-                      ),
-                      margin: EdgeInsets.only(
-                        bottom: Adapt.setHeight(4),
-                      ),
-                      height: Adapt.setHeight(36),
-                      width: Adapt.setHeight(36),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "P",
-                        style: TextStyles.h6.copyWith(
-                          color: AppTheme.of(context).surface!,
+                        margin: EdgeInsets.only(
+                          bottom: Adapt.setHeight(4),
+                        ),
+                        height: Adapt.setHeight(36),
+                        width: Adapt.setHeight(36),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "P",
+                          style: TextStyles.h6.copyWith(
+                            color: AppTheme.of(context).surface!,
+                          ),
                         ),
                       ),
                     ),
@@ -130,96 +138,108 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: Column(
                     children: item.items.map((e) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: Adapt.setHeight(10),
-                          horizontal: Adapt.setWidth(15),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              "assets/workouts/${e.type}.gif",
-                              height: Adapt.setHeight(75),
-                            ),
-                            SizedBox(
-                              width: Adapt.setWidth(10),
-                            ),
-                            Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    e.date,
-                                    style: TextStyles.body2.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: Adapt.setHeight(3),
-                                  ),
-                                  AnimatedOpacity(
-                                    opacity: 0.7,
-                                    duration: Durations.fastest,
-                                    child: Text(
-                                      e.title,
-                                      style: TextStyles.body2,
-                                    ),
-                                  ),
-                                  AnimatedOpacity(
-                                    opacity: 0.7,
-                                    duration: Durations.fastest,
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "${e.numberOfSets} sets",
-                                          style: TextStyles.body3,
-                                        ),
-                                        Container(
-                                          height: Adapt.setHeight(7),
-                                          width: Adapt.setHeight(7),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: AppTheme.of(context).grey,
-                                          ),
-                                          margin: EdgeInsets.symmetric(
-                                            horizontal: Adapt.setWidth(7),
-                                          ),
-                                        ),
-                                        Text(
-                                          "${e.reps} reps",
-                                          style: TextStyles.body3,
-                                        ),
-                                        Container(
-                                          height: Adapt.setHeight(7),
-                                          width: Adapt.setHeight(7),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: AppTheme.of(context).grey,
-                                          ),
-                                          margin: EdgeInsets.symmetric(
-                                            horizontal: Adapt.setWidth(7),
-                                          ),
-                                        ),
-                                        Text(
-                                          "${e.weight} lbs",
-                                          style: TextStyles.body3,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                      return InkWell(
+                        borderRadius: Corners.s10Border,
+                        onTap: () {
+                          context.pushNamed(
+                            'workout_detail',
+                            params: {'id': "123"},
+                          );
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: Adapt.setHeight(10),
+                            horizontal: Adapt.setWidth(15),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                "assets/workouts/${e.type}.gif",
+                                height: Adapt.setHeight(75),
                               ),
-                            ),
-                            SizedBox(
-                              width: Adapt.setWidth(10),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.delete_outline),
-                            ),
-                          ],
+                              SizedBox(
+                                width: Adapt.setWidth(10),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      e.date,
+                                      style: TextStyles.body2.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: Adapt.setHeight(3),
+                                    ),
+                                    AnimatedOpacity(
+                                      opacity: 0.7,
+                                      duration: Durations.fastest,
+                                      child: Text(
+                                        e.title,
+                                        style: TextStyles.body2,
+                                      ),
+                                    ),
+                                    AnimatedOpacity(
+                                      opacity: 0.7,
+                                      duration: Durations.fastest,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "${e.numberOfSets} sets",
+                                            style: TextStyles.body3,
+                                          ),
+                                          Container(
+                                            height: Adapt.setHeight(7),
+                                            width: Adapt.setHeight(7),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppTheme.of(context).grey,
+                                            ),
+                                            margin: EdgeInsets.symmetric(
+                                              horizontal: Adapt.setWidth(7),
+                                            ),
+                                          ),
+                                          Text(
+                                            "${e.reps} reps",
+                                            style: TextStyles.body3,
+                                          ),
+                                          Container(
+                                            height: Adapt.setHeight(7),
+                                            width: Adapt.setHeight(7),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppTheme.of(context).grey,
+                                            ),
+                                            margin: EdgeInsets.symmetric(
+                                              horizontal: Adapt.setWidth(7),
+                                            ),
+                                          ),
+                                          Text(
+                                            "${e.weight} lbs",
+                                            style: TextStyles.body3,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: Adapt.setWidth(10),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.delete_outline,
+                                  color: AppTheme.of(context).grey,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }).toList(),

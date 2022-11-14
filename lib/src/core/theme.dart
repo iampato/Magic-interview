@@ -66,7 +66,8 @@ class AppTheme {
   static AppTheme isDarkTheme() {
     return AppTheme()
       ..bg1 = const Color(0xff00120f)
-      ..primary = const Color(0xFFe50914)
+      ..primary = const Color(0xFF72d0f4)
+      ..primaryLight = Colors.blue
       ..surface = Colors.black
       ..greyWeak = const Color(0xffa8b3b0)
       ..grey = const Color(0xffa8b3b0)

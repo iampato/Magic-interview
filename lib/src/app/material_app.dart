@@ -27,6 +27,18 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: materialColor,
               brightness: getTheme(theme),
               fontFamily: TextStyles.poppins.fontFamily,
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                backgroundColor: Colors.white,
+              ),
+              floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: AppTheme.of(context).primary,
+              ),
+              scaffoldBackgroundColor: AppTheme.theme(getTheme(theme)).bg1,
+            ),
+            darkTheme: ThemeData(
+              primarySwatch: materialColor,
+              brightness: getTheme(theme),
+              fontFamily: TextStyles.poppins.fontFamily,
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
                 backgroundColor: getTheme(theme) == Brightness.dark
                     ? Colors.black
@@ -38,20 +50,8 @@ class _MyAppState extends State<MyApp> {
               scaffoldBackgroundColor: getTheme(theme) == Brightness.dark
                   ? null
                   : AppTheme.theme(getTheme(theme)).bg1,
+              // scaffoldBackgroundColor: Colors.black,
             ),
-            // darkTheme: theme == 2
-            //     ? ThemeData(
-            //         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            //           backgroundColor: Colors.black,
-            //           selectedItemColor:
-            //               AppTheme.theme(Brightness.dark).primary,
-            //         ),
-            //         primarySwatch: materialColor,
-            //         brightness: Brightness.dark,
-            //         fontFamily: GoogleFonts.openSans().fontFamily,
-            //         // scaffoldBackgroundColor: Colors.black,
-            //       )
-            //     : null,
             themeMode: ThemeMode.system,
             builder: (context, widget) {
               return ResponsiveWrapper.builder(

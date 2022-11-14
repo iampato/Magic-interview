@@ -7,4 +7,8 @@ class Assets {
   /// banner
   static const String banner = 'assets/images/banner.png';
   static const String loginWorkout = 'assets/lottie/login-workout.json';
+  //
+  static const String loading = 'assets/lottie/loading.json';
+  static const String error = 'assets/lottie/error.json';
+  static const String success = 'assets/lottie/success.json';
 }
