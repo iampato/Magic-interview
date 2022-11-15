@@ -1,3 +1,4 @@
+import 'package:magic_backend/v1/workout/models/my_workout_response.dart';
 import 'package:magic_backend/v1/workout/workout.dart';
 
 /// WorkoutService
@@ -6,7 +7,7 @@ abstract class WorkoutService {
   Future<List<WorkoutDbModel>> getAllWorkouts();
 
   /// filter all workouts by user id
-  Future<List<WorkoutDbModel>> getAllWorkoutsById(String id);
+  Future<List<MyWorkoutResponse>> getAllWorkoutsById(String id);
 
   /// get workout by id
   Future<WorkoutDbModel?> getWorkoutById(String id);

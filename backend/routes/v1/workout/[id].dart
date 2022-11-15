@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
+import 'package:magic_backend/v1/workout/models/my_workout_response.dart';
 import 'package:magic_backend/v1/workout/workout.dart';
 
 // reponse handler
@@ -35,7 +36,7 @@ Future<Response> _get(RequestContext context, String id) async {
     final workoutResponse = await workoutServiceImpl.getAllWorkoutsById(id);
 
     return Response.json(
-      body: workoutDbModelListToMap(workoutResponse),
+      body: myWorkoutResponseListToMap(workoutResponse),
     );
   } catch (e) {
     return Response(statusCode: HttpStatus.internalServerError);

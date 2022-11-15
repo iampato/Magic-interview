@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:intl/intl.dart';
+import 'package:magic_backend/v1/workout/models/my_workout_response.dart';
 import 'package:magic_backend/v1/workout/workout.dart';
 
 /// WorkoutServiceImpl
@@ -45,9 +49,36 @@ class WorkoutServiceImpl extends WorkoutService {
   }
 
   @override
-  Future<List<WorkoutDbModel>> getAllWorkoutsById(String id) {
+  Future<List<MyWorkoutResponse>> getAllWorkoutsById(String id) async {
     try {
-      return _workoutRepository.getAllWorkoutsById(id);
+      final workouts = await _workoutRepository.getAllWorkoutsById(id);
+      // cluster the workouts by month
+      // we return a list of MyWorkoutResponse
+      // each month should have a list of workouts
+      final workoutsByDate = <MyWorkoutResponse>[];
+
+      for (final element in workouts) {
+        // get the month and year of the workout
+        final date = DateTime.parse(element.dateCreated);
+        final dateFormatted = DateFormat('MMMM yyyy').format(date);
+        // check if the month and year is already in the list
+        final index = workoutsByDate.indexWhere(
+          (element) => element.month == dateFormatted,
+        );
+        if (index == -1) {
+          // if not, add it
+          workoutsByDate.add(
+            MyWorkoutResponse(
+              month: dateFormatted,
+              workouts: [element],
+            ),
+          );
+        } else {
+          // if it is, add the workout to the list
+          workoutsByDate[index].workouts.add(element);
+        }
+      }
+      return workoutsByDate;
     } catch (e) {
       rethrow;
     }
