@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: Adapt.setHeight(5)),
             ElevatedButton(
               onPressed: () {
-                context.pushNamed("account");
+                context.goNamed("home");
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(
