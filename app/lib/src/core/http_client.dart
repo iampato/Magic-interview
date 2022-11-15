@@ -86,6 +86,27 @@ class HttpNetworkUtil {
     }
   }
 
+  Future<Response> patchRequest(
+    String endpoint,
+    Map<String, dynamic> body,
+  ) async {
+    _logger.d(json.encode(body));
+    try {
+      Dio dio = await addInterceptors();
+      Response response = await dio.patch(
+        endpoint,
+        data: json.encode(body),
+      );
+      _logger.i(
+        "patchRequest:\nurl:${response.realUri.toString()}\nresponse:\n${response.statusCode}\n${response.data}",
+      );
+      return response;
+    } catch (e) {
+      _logger.e(e);
+      rethrow;
+    }
+  }
+
   Future<Response> deleteRequest(String endpoint) async {
     try {
       Dio dio = await addInterceptors();
