@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceRepo {
   static const String themeKey = "apptheme";
-  static const String newUserKey = "newuser";
+  static const String userKey = "newuser";
 
   /// saveThemeValue(int value)
   /// parameters: integer value that is to be stored
@@ -23,20 +23,19 @@ class SharedPreferenceRepo {
     return option;
   }
 
-  /// saveNewUserValue(bool value)
+  /// saveUserValue(String value)
   /// parameter: the bool to be saved
   /// returns: nothing
-  Future<void> saveNewUserValue(bool value) async {
+  Future<void> saveUserValue(String value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool(newUserKey, value);
+    preferences.setString(userKey, value);
   }
 
-  /// getNewUserValue()
+  /// getUserValue()
   /// parameter: nothing
-  /// returns: bool value from the key newUserKey if it returns null default to false
-  Future<bool> getNewUserValue() async {
+  Future<String?> getUserValue() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getBool(newUserKey) ?? false;
+    return preferences.getString(userKey);
   }
 
   /// destory()
