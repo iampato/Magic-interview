@@ -58,4 +58,9 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(const AuthenticationState.unAuthenticated());
     }
   }
+
+  UserModel? get user => state.maybeWhen(
+        authenticated: (userModel) => userModel,
+        orElse: () => null,
+      );
 }

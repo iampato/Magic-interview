@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:magic/src/features/landing/cubit/authentication/authentication_cubit.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 import 'package:magic/src/core/core.dart';
@@ -15,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AuthenticationCubit>().user;
     return Scaffold(
       backgroundColor: AppTheme.of(context).surface,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -53,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Hi, Patrick",
+                            "Hi, ${user?.name}",
                             style: TextStyles.h6.bold.copyWith(
                               height: 0.7,
                             ),
@@ -78,20 +81,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           shape: BoxShape.circle,
                           border: Border.all(
                             width: 1.5,
-                            color: AppTheme.of(context).surface!,
                           ),
                         ),
                         margin: EdgeInsets.only(
                           bottom: Adapt.setHeight(4),
                         ),
-                        height: Adapt.setHeight(36),
-                        width: Adapt.setHeight(36),
+                        height: Adapt.setHeight(39),
+                        width: Adapt.setHeight(39),
                         alignment: Alignment.center,
                         child: Text(
-                          "P",
-                          style: TextStyles.h6.copyWith(
-                            color: AppTheme.of(context).surface!,
-                          ),
+                          "${user?.name[0]}",
+                          style: TextStyles.h6,
                         ),
                       ),
                     ),
