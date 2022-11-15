@@ -1,4 +1,3 @@
-
 import 'package:magic_backend/config/mongo-client.dart';
 import 'package:magic_backend/v1/workout/workout.dart';
 import 'package:mongo_dart/mongo_dart.dart';
@@ -13,14 +12,18 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
   final MongoClient _mongoClient;
 
   @override
-  Future<WorkoutDbModel> createWorkout(CreateWorkoutRequest workoutReq) async {
+  Future<WorkoutDbModel> createWorkout(
+    String userId,
+    CreateWorkoutRequest workoutReq,
+  ) async {
     if (_mongoClient.db != null) {
       final collection = _mongoClient.db!.collection('workouts');
       final now = DateTime.now();
       final results = await collection.insertOne({
         ...workoutReq.toMap(),
-        'dateCreatedAt': now,
-        'dateUpdatedAt': now,
+        'userId': userId,
+        'dateCreatedAt': now.toIso8601String(),
+        'dateUpdatedAt': now.toIso8601String(),
       });
       if (results.isSuccess) {
         return WorkoutDbModel.fromMap(results.document!);
@@ -35,10 +38,22 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
   }
 
   @override
-  Future<void> deleteWorkout(String id) {
+  Future<void> deleteWorkout(String id) async {
     if (_mongoClient.db != null) {
       final collection = _mongoClient.db!.collection('workouts');
-      return collection.deleteOne(where.eq('_id', ObjectId.fromHexString(id)));
+      final response = await collection.deleteOne(
+        where.eq(
+          '_id',
+          ObjectId.fromHexString(id),
+        ),
+      );
+      if (response.isSuccess) {
+        return;
+      } else {
+        throw Exception(
+          response.errmsg ?? 'an error occured in deleting workout',
+        );
+      }
     } else {
       throw Exception('Database not connected');
     }

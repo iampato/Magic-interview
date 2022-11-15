@@ -1,5 +1,3 @@
-
-
 import 'package:magic_backend/v1/workout/workout.dart';
 
 /// WorkoutRepository
@@ -14,7 +12,10 @@ abstract class WorkoutRepository {
   Future<WorkoutDbModel?> getWorkoutById(String id);
 
   /// create workout
-  Future<WorkoutDbModel> createWorkout(CreateWorkoutRequest workoutReq);
+  Future<WorkoutDbModel> createWorkout(
+    String userId,
+    CreateWorkoutRequest workoutReq,
+  );
 
   /// update workout
   /// [id] user id

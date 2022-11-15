@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:magic_backend/v1/user/user.dart';
+import 'package:magic_backend/v1/workout/workout.dart';
 
 // reponse handler
 Future<Response> onRequest(RequestContext context, String id) async {
@@ -31,10 +31,12 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
 Future<Response> _get(RequestContext context, String id) async {
   try {
-    final userServiceImpl = context.read<UserServiceImpl>();
+    final workoutServiceImpl = context.read<WorkoutServiceImpl>();
+    final workoutResponse = await workoutServiceImpl.getAllWorkoutsById(id);
 
-    final user = await userServiceImpl.getUserById(id);
-    return Response.json(body: user?.toMap());
+    return Response.json(
+      body: workoutDbModelListToMap(workoutResponse),
+    );
   } catch (e) {
     return Response(statusCode: HttpStatus.internalServerError);
   }
@@ -42,17 +44,19 @@ Future<Response> _get(RequestContext context, String id) async {
 
 Future<Response> _post(RequestContext context, String id) async {
   try {
-    final userServiceImpl = context.read<UserServiceImpl>();
+    final workoutServiceImpl = context.read<WorkoutServiceImpl>();
     final requestJson = await context.request.json() as Map<String, dynamic>?;
     if (requestJson == null) {
       return Response(statusCode: HttpStatus.badRequest);
     }
-    final userRequest = CreateUserReq.fromMap(requestJson);
-    final userResponse = await userServiceImpl.updateUser(id, userRequest);
-    final userMap = userResponse.toMap()..remove('password');
+    final workoutRequest = CreateWorkoutRequest.fromMap(requestJson);
+    final workoutResponse = await workoutServiceImpl.createWorkout(
+      id,
+      workoutRequest,
+    );
     return Response.json(
       statusCode: HttpStatus.created,
-      body: userMap,
+      body: workoutResponse.toMap(),
     );
   } catch (e) {
     return Response.json(
@@ -66,17 +70,18 @@ Future<Response> _post(RequestContext context, String id) async {
 
 Future<Response> _patch(RequestContext context, String id) async {
   try {
-    final userServiceImpl = context.read<UserServiceImpl>();
+    final workoutServiceImpl = context.read<WorkoutServiceImpl>();
     final requestJson = await context.request.json() as Map<String, dynamic>?;
     if (requestJson == null) {
       return Response(statusCode: HttpStatus.badRequest);
     }
-    final userRequest = CreateUserReq.fromMap(requestJson);
-    final userResponse = await userServiceImpl.updateUser(id, userRequest);
-    final userMap = userResponse.toMap()..remove('password');
+    final workoutRequest = CreateWorkoutRequest.fromMap(requestJson);
+    final workoutResponse = await workoutServiceImpl.updateWorkout(
+      id,
+      workoutRequest,
+    );
     return Response.json(
-      statusCode: HttpStatus.created,
-      body: userMap,
+      body: workoutResponse.toMap(),
     );
   } catch (e) {
     return Response.json(
@@ -90,10 +95,15 @@ Future<Response> _patch(RequestContext context, String id) async {
 
 Future<Response> _delete(RequestContext context, String id) async {
   try {
-    final userServiceImpl = context.read<UserServiceImpl>();
-    await userServiceImpl.deleteUser(id);
-    return Response.json(body: {'message': 'user deleted'});
+    final workoutServiceImpl = context.read<WorkoutServiceImpl>();
+    await workoutServiceImpl.deleteWorkout(id);
+    return Response.json(body: {'message': 'workout deleted'});
   } catch (e) {
-    return Response(statusCode: HttpStatus.internalServerError);
+    return Response.json(
+      statusCode: HttpStatus.internalServerError,
+      body: {
+        'message': e.toString(),
+      },
+    );
   }
 }

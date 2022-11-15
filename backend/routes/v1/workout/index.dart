@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:magic_backend/v1/user/user.dart';
+import 'package:magic_backend/v1/workout/workout.dart';
 
 // reponse handler
 Future<Response> onRequest(RequestContext context) async {
@@ -22,12 +22,12 @@ Future<Response> onRequest(RequestContext context) async {
 
 Future<Response> _get(RequestContext context) async {
   try {
-    final userServiceImpl = context.read<UserServiceImpl>();
-    final userResponse = await userServiceImpl.getAllUsers();
+    final workoutServiceImpl = context.read<WorkoutServiceImpl>();
+    final workoutResponse = await workoutServiceImpl.getAllWorkouts();
 
     return Response.json(
       statusCode: HttpStatus.created,
-      body: userModelListToMapList(userResponse),
+      body: workoutDbModelListToMap(workoutResponse),
     );
   } catch (e) {
     return Response.json(

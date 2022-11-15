@@ -10,17 +10,25 @@ class WorkoutServiceImpl extends WorkoutService {
   final WorkoutRepository _workoutRepository;
 
   @override
-  Future<WorkoutDbModel> createWorkout(CreateWorkoutRequest workoutReq) {
+  Future<WorkoutDbModel> createWorkout(
+    String userId,
+    CreateWorkoutRequest workoutReq,
+  ) {
     try {
-      return _workoutRepository.createWorkout(workoutReq);
+      return _workoutRepository.createWorkout(userId, workoutReq);
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<void> deleteWorkout(String id) {
+  Future<void> deleteWorkout(String id) async {
     try {
+      // check if exists
+      final workout = await _workoutRepository.getWorkoutById(id);
+      if (workout == null) {
+        throw Exception('workout not found');
+      }
       return _workoutRepository.deleteWorkout(id);
     } catch (e) {
       rethrow;

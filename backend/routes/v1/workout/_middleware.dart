@@ -1,6 +1,5 @@
 import 'package:dart_frog/dart_frog.dart';
 import 'package:magic_backend/config/mongo-client.dart';
-import 'package:magic_backend/v1/user/user.dart';
 import 'package:magic_backend/v1/workout/workout.dart';
 
 /// Middleware
@@ -20,9 +19,9 @@ Middleware repoProvider() {
 }
 
 Middleware serviceProvider() {
-  return provider<UserServiceImpl>(
-    (context) => UserServiceImpl(
-      userRepository: context.read<UserRepositoryImpl>(),
+  return provider<WorkoutServiceImpl>(
+    (context) => WorkoutServiceImpl(
+      workoutRepository: context.read<WorkoutRepositoryImpl>(),
     ),
   );
 }

@@ -4,6 +4,17 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
+// function that conver List<WorkoutDbModel> to List<Map<String, dynamic>>
+List<Map<String, dynamic>> workoutDbModelListToMap(
+  List<WorkoutDbModel> workoutDbModelList,
+) {
+  return workoutDbModelList
+      .map(
+        (workoutDbModel) => workoutDbModel.toMap(),
+      )
+      .toList();
+}
+
 ///
 class WorkoutDbModel extends Equatable {
   final ObjectId id;

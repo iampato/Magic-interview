@@ -1,6 +1,6 @@
+import 'package:dart_frog/dart_frog.dart';
 import 'package:magic_backend/config/mongo-client.dart';
 import 'package:magic_backend/v1/user/user.dart';
-import 'package:dart_frog/dart_frog.dart';
 
 /// Middleware
 Handler middleware(Handler handler) {

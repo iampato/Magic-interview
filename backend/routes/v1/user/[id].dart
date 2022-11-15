@@ -48,7 +48,6 @@ Future<Response> _patch(RequestContext context, String id) async {
     final userResponse = await userServiceImpl.updateUser(id, userRequest);
     final userMap = userResponse.toMap()..remove('password');
     return Response.json(
-      statusCode: HttpStatus.created,
       body: userMap,
     );
   } catch (e) {
