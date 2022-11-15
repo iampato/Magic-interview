@@ -13,6 +13,7 @@ class JWTUtils {
     );
     return jwt.sign(
       SecretKey(secret),
+      algorithm: JWTAlgorithm.HS512,
       expiresIn: const Duration(minutes: 120),
     );
   }
