@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceRepo {
   static const String themeKey = "apptheme";
-  static const String userKey = "newuser";
+  static const String userKey = "user";
 
   /// saveThemeValue(int value)
   /// parameters: integer value that is to be stored
