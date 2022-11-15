@@ -16,7 +16,7 @@ class HttpNetworkUtil {
   final Logger _logger = Logger();
 
   static BaseOptions baseOptions = BaseOptions(
-    baseUrl: AppConfig.getProd().apiUrl,
+    baseUrl: AppConfig.getDev().apiUrl,
     contentType: 'application/json',
     connectTimeout: 30 * 1000,
     receiveTimeout: 30 * 1000,

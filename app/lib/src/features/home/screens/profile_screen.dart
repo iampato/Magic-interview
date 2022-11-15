@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:magic/src/core/core.dart';
+import 'package:magic/src/features/landing/cubit/authentication/authentication_cubit.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -142,6 +145,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 trailing: const Icon(Icons.chevron_right),
               ),
               ListTile(
+                onTap: () {
+                  context.read<AuthenticationCubit>().logOut();
+                  context.goNamed("bootloader");
+                },
                 contentPadding: EdgeInsets.zero,
                 leading: CircleAvatar(
                   backgroundColor:

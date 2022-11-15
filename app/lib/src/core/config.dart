@@ -16,13 +16,13 @@ class AppConfig {
 
   factory AppConfig.getProd() {
     return AppConfig(
-      apiUrl: "https://magic-api-452.herokuapp.com",
+      apiUrl: "https://magic-api-452.herokuapp.com/v1/",
     );
   }
 
   factory AppConfig.getDev() {
     return AppConfig(
-      apiUrl: "http://192.168.100.33:8080/",
+      apiUrl: "http://192.168.100.33:8080/v1/",
     );
   }
 
