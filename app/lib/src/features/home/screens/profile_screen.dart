@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:magic/src/core/core.dart';
+import 'package:magic/src/features/home/cubit/list%20workout/list_workout_cubit.dart';
 import 'package:magic/src/features/landing/cubit/authentication/authentication_cubit.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<AuthenticationCubit>().user;
     return Scaffold(
       backgroundColor: AppTheme.of(context).surface,
       body: NestedScrollView(
@@ -58,14 +60,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Center(
                 child: Text(
-                  "Patrick Waweru",
+                  user?.name ?? "No Name",
                   style: TextStyles.h7,
                 ),
               ),
               SizedBox(height: Adapt.setHeight(5)),
               Center(
                 child: Text(
-                  "858wpwaweru@gmail.com",
+                  user?.email ?? "No email",
                   style: TextStyles.body3,
                 ),
               ),
@@ -146,6 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ListTile(
                 onTap: () {
+                  context.read<ListWorkoutCubit>().clearState();
                   context.read<AuthenticationCubit>().logOut();
                   context.goNamed("bootloader");
                 },
@@ -175,17 +178,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 opacity: 0.6,
                 duration: Durations.fast,
                 child: Center(child: Text("v 1.0.0")),
-              ),
-              SizedBox(height: Adapt.setHeight(25)),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(
-                    double.infinity,
-                    Adapt.setHeight(36),
-                  ),
-                ),
-                child: const Text("Delete account"),
               ),
             ],
           ),

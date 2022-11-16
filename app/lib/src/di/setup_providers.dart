@@ -37,7 +37,7 @@ Widget setupProviders(Widget child) {
         create: (context) => ListWorkoutCubit(
           workoutRepo: context.read<WorkoutRepository>(),
           preferenceRepo: context.read<SharedPreferenceRepo>(),
-        ),
+        )..clearState(),
       ),
     ],
     child: child,

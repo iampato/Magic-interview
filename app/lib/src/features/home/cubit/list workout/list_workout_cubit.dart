@@ -242,4 +242,9 @@ class ListWorkoutCubit extends Cubit<ListWorkoutState> {
       },
     );
   }
+
+  //clear the state
+  void clearState() {
+    emit(const ListWorkoutState.initial());
+  }
 }
