@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:logger/logger.dart';
 import 'package:magic/src/core/shared_preference.dart';
 import 'package:magic/src/features/home/model/create_workout_request.dart';
 import 'package:magic/src/features/home/model/workout_response.dart';
@@ -180,10 +181,7 @@ class ListWorkoutCubit extends Cubit<ListWorkoutState> {
 
   Future<void> editWorkout({
     required String workoutId,
-    required String type,
-    required int noOfSets,
-    required int noOfReps,
-    required double weight,
+    required CreateWorkoutRequest request,
   }) async {
     final currentState = state;
     currentState.maybeWhen(
@@ -196,10 +194,7 @@ class ListWorkoutCubit extends Cubit<ListWorkoutState> {
           ));
           await workoutRepo.updateWorkout(
             workoutId: workoutId,
-            type: type,
-            noOfSets: noOfSets,
-            noOfReps: noOfReps,
-            weight: weight,
+            request: request,
           );
           getMyWorkouts();
           emit(const ListWorkoutState.success(
@@ -224,13 +219,11 @@ class ListWorkoutCubit extends Cubit<ListWorkoutState> {
             workoutResponse: workoutResponse,
             message: null,
           ));
-          await workoutRepo.updateWorkout(
+          final res = await workoutRepo.updateWorkout(
             workoutId: workoutId,
-            type: type,
-            noOfSets: noOfSets,
-            noOfReps: noOfReps,
-            weight: weight,
+            request: request,
           );
+          Logger().wtf(res?.toJson());
           getMyWorkouts();
           emit(ListWorkoutState.success(
             isLoading: null,

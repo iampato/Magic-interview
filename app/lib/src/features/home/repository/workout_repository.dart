@@ -55,21 +55,13 @@ class WorkoutRepository {
 
   Future<WorkoutModel?> updateWorkout({
     required String workoutId,
-    required String type,
-    required int noOfSets,
-    required int noOfReps,
-    required double weight,
+    required CreateWorkoutRequest request,
   }) async {
     String endpoint = "workout/$workoutId";
     try {
       Response response = await _httpNetworkUtil.patchRequest(
         endpoint,
-        {
-          "type": type,
-          "noOfSets": noOfSets,
-          "noOfReps": noOfReps,
-          "weight": weight
-        },
+        request.toMap(),
       );
       if (response.statusCode == 200) {
         return WorkoutModel.fromJson(response.data);
