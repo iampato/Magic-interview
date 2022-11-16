@@ -7,7 +7,7 @@ class CreateWorkoutRequest extends Equatable {
   final String type;
   final int noOfSets;
   final int noOfReps;
-  final double weight;
+  final num weight;
   const CreateWorkoutRequest({
     required this.type,
     required this.noOfSets,
@@ -36,7 +36,7 @@ class CreateWorkoutRequest extends Equatable {
       type: (map['type'] ?? '') as String,
       noOfSets: (map['noOfSets'] ?? 0) as int,
       noOfReps: (map['noOfReps'] ?? 0) as int,
-      weight: (map['weight'] ?? 0.0) as double,
+      weight: (map['weight'] ?? 0.0) as num,
     );
   }
 

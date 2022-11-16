@@ -130,7 +130,6 @@ class _HorizontalStepperState extends State<HorizontalStepper>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: widget.options.map((e) {
-                                    int index = widget.options.indexOf(e);
                                     return Container(
                                       height: 13,
                                       width: 13,

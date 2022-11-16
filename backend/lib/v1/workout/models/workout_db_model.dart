@@ -23,7 +23,7 @@ class WorkoutDbModel extends Equatable {
   final String dateUpdated;
   final int noOfSets;
   final int noOfReps;
-  final double weight;
+  final num weight;
   final String userId;
 
   const WorkoutDbModel({
@@ -70,7 +70,7 @@ class WorkoutDbModel extends Equatable {
       dateUpdated: (map['dateUpdatedAt'] ?? '') as String,
       noOfSets: (map['noOfSets'] ?? 0) as int,
       noOfReps: (map['noOfReps'] ?? 0) as int,
-      weight: (map['weight'] ?? 0.0) as double,
+      weight: (map['weight'] ?? 0.0) as num,
       userId: (map['userId'] ?? '') as String,
     );
   }

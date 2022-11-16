@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:magic/src/core/shared_preference.dart';
+import 'package:magic/src/features/home/model/create_workout_request.dart';
 import 'package:magic/src/features/home/model/workout_response.dart';
 import 'package:magic/src/features/home/repository/workout_repository.dart';
 import 'package:magic/src/features/landing/models/user_model.dart';
@@ -32,10 +33,7 @@ class ListWorkoutCubit extends Cubit<ListWorkoutState> {
   }
 
   Future<void> createWorkout({
-    required String type,
-    required int noOfSets,
-    required int noOfReps,
-    required double weight,
+    required CreateWorkoutRequest request,
   }) async {
     final currentState = state;
     currentState.maybeWhen(
@@ -51,10 +49,7 @@ class ListWorkoutCubit extends Cubit<ListWorkoutState> {
           UserModel user = UserModel.fromJson(userMap);
           await workoutRepo.createWorkout(
             userId: user.id,
-            type: type,
-            noOfSets: noOfSets,
-            noOfReps: noOfReps,
-            weight: weight,
+            request: request,
           );
           getMyWorkouts();
           emit(const ListWorkoutState.success(
@@ -84,17 +79,14 @@ class ListWorkoutCubit extends Cubit<ListWorkoutState> {
           UserModel user = UserModel.fromJson(userMap);
           await workoutRepo.createWorkout(
             userId: user.id,
-            type: type,
-            noOfSets: noOfSets,
-            noOfReps: noOfReps,
-            weight: weight,
+            request: request,
           );
-          getMyWorkouts();
           emit(ListWorkoutState.success(
             isLoading: null,
             workoutResponse: workoutResponse,
             message: "Workout created successfully",
           ));
+          await getMyWorkouts();
         } catch (e) {
           emit(
             ListWorkoutState.success(

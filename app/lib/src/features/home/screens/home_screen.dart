@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 success: (_, workoutResponse, __) {
-                  if (workoutResponse.isEmpty || workoutResponse == null) {
+                  if (workoutResponse.isEmpty) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -235,7 +235,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                DateFormat.yMMM()
+                                                // 13th nov 13:00
+                                                DateFormat("d MMM, HH:mm")
                                                     .format(e.dateCreatedAt),
                                                 style:
                                                     TextStyles.body2.copyWith(
@@ -371,179 +372,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-// class WorkoutItem {
-//   final String title;
-//   final String date;
-//   final int numberOfSets;
-//   final String type;
-//   final double weight;
-//   final int reps;
-
-//   WorkoutItem({
-//     required this.title,
-//     required this.date,
-//     required this.numberOfSets,
-//     required this.type,
-//     required this.weight,
-//     required this.reps,
-//   });
-// }
-
-// class WorkOut {
-//   final String dateTime;
-//   final List<WorkoutItem> items;
-//   WorkOut({
-//     required this.dateTime,
-//     required this.items,
-//   });
-// }
-
-// // dummy list of workouts
-// final _workouts = [
-//   WorkOut(
-//     dateTime: "November 2022",
-//     items: [
-//       WorkoutItem(
-//         title: "Bench Press",
-//         date: "14th Nov 12:00",
-//         numberOfSets: 3,
-//         type: "bench-press",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Squats",
-//         date: "13th Nov 18:03",
-//         numberOfSets: 3,
-//         type: "squat",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Deadlifts",
-//         date: "10th Nov 12:00",
-//         numberOfSets: 3,
-//         type: "deadlift",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Barbell row",
-//         date: "2nd Nov 08:00",
-//         numberOfSets: 3,
-//         type: "barbell-row",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Shoulder Press",
-//         date: "1st Nov 22:00",
-//         numberOfSets: 3,
-//         type: "shoulder-press",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//     ],
-//   ),
-//   WorkOut(
-//     dateTime: "October 2022",
-//     items: [
-//       WorkoutItem(
-//         title: "Bench Press",
-//         date: "30th Oct 18:03",
-//         numberOfSets: 3,
-//         type: "bench-press",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Squats",
-//         date: "29th Oct 12:00",
-//         numberOfSets: 3,
-//         type: "squat",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Shoulder Press",
-//         date: "28th Oct 08:00",
-//         numberOfSets: 3,
-//         type: "shoulder-press",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//     ],
-//   ),
-//   WorkOut(
-//     dateTime: "September 2022",
-//     items: [
-//       WorkoutItem(
-//         title: "Squats",
-//         date: "30th Sep 18:03",
-//         numberOfSets: 3,
-//         type: "squat",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Deadlifts",
-//         date: "27th Sep 12:00",
-//         numberOfSets: 3,
-//         type: "deadlift",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Barbell row",
-//         date: "25th Sep 08:00",
-//         numberOfSets: 3,
-//         type: "barbell-row",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Shoulder Press",
-//         date: "24th Sep 22:00",
-//         numberOfSets: 3,
-//         type: "shoulder-press",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//     ],
-//   ),
-//   WorkOut(
-//     dateTime: "August 2022",
-//     items: [
-//       WorkoutItem(
-//         title: "Bench Press",
-//         date: "30th Aug 18:03",
-//         numberOfSets: 3,
-//         type: "bench-press",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//     ],
-//   ),
-//   WorkOut(
-//     dateTime: "July 2022",
-//     items: [
-//       WorkoutItem(
-//         title: "Barbell row",
-//         date: "30th Jul 18:03",
-//         numberOfSets: 3,
-//         type: "barbell-row",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//       WorkoutItem(
-//         title: "Shoulder Press",
-//         date: "29th Jul 12:00",
-//         numberOfSets: 3,
-//         type: "shoulder-press",
-//         weight: 100,
-//         reps: 10,
-//       ),
-//     ],
-//   ),
-// ];

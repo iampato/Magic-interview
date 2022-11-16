@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 import 'package:magic/src/core/http_client.dart';
+import 'package:magic/src/features/home/model/create_workout_request.dart';
 import 'package:magic/src/features/home/model/workout_model.dart';
 import 'package:magic/src/features/home/model/workout_response.dart';
 
@@ -31,22 +33,16 @@ class WorkoutRepository {
 
   Future<WorkoutModel?> createWorkout({
     required String userId,
-    required String type,
-    required int noOfSets,
-    required int noOfReps,
-    required double weight,
+    required CreateWorkoutRequest request,
   }) async {
     String endpoint = "workout/$userId";
     try {
       Response response = await _httpNetworkUtil.postRequest(
         endpoint,
-        {
-          "type": type,
-          "noOfSets": noOfSets,
-          "noOfReps": noOfReps,
-          "weight": weight
-        },
+        request.toMap(),
       );
+      Logger().i(response.realUri);
+      Logger().i(response.data);
       if (response.statusCode == 201) {
         return WorkoutModel.fromJson(response.data);
       } else {

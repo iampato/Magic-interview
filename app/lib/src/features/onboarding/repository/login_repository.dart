@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:logger/logger.dart';
 import 'package:magic/src/core/http_client.dart';
 import 'package:magic/src/features/landing/models/user_model.dart';
 import 'package:magic/src/features/onboarding/models/login_response.dart';
