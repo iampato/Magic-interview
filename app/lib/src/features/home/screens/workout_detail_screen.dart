@@ -1,9 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:magic/src/core/core.dart';
+import 'package:magic/src/features/home/cubit/list%20workout/list_workout_cubit.dart';
 import 'package:magic/src/features/home/model/workout_model.dart';
+import 'package:magic/src/widgets/button_loading.dart';
 
 class WorkoutDetailScreen extends StatefulWidget {
   final WorkoutModel workoutModel;
@@ -18,6 +21,7 @@ class WorkoutDetailScreen extends StatefulWidget {
 
 class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   WorkoutModel get workoutModel => widget.workoutModel;
+  String? _id;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +36,21 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
             SliverAppBar(
               actions: [
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.delete_outline),
+                  onPressed: () {
+                    setState(() {
+                      _id = workoutModel.id;
+                    });
+                    // delete workout
+                    context
+                        .read<ListWorkoutCubit>()
+                        .deleteWorkout(workoutId: workoutModel.id);
+                    Future.delayed(Durations.medium, () {
+                      Navigator.pop(context);
+                    });
+                  },
+                  icon: _id == workoutModel.id
+                      ? const ButtonLoading()
+                      : const Icon(Icons.delete_outline),
                 )
               ],
               pinned: true,
