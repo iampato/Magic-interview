@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:magic/src/app/router.dart';
 import 'package:magic/src/core/core.dart';
-import 'package:magic/src/cubit/theme/theme_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -14,75 +12,70 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int theme = 0;
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(392, 850),
-      child: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          return MaterialApp.router(
-            title: 'Slam App, Swipe your way',
-            theme: ThemeData(
-              primarySwatch: materialColor,
-              brightness: getTheme(theme),
-              fontFamily: TextStyles.poppins.fontFamily,
-              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                backgroundColor: Colors.white,
+      child: MaterialApp.router(
+        title: 'Magic App',
+        //debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: materialColor,
+          fontFamily: TextStyles.poppins.fontFamily,
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            backgroundColor: Colors.white,
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: AppTheme.of(context).primary,
+          ),
+          scaffoldBackgroundColor: AppTheme.theme(getTheme(0)).bg1,
+        ),
+        // darkTheme: ThemeData(
+        //   primarySwatch: materialColor,
+        //   brightness: getTheme(theme),
+        //   fontFamily: TextStyles.poppins.fontFamily,
+        //   bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        //     backgroundColor: getTheme(theme) == Brightness.dark
+        //         ? Colors.black
+        //         : Colors.white,
+        //   ),
+        //   floatingActionButtonTheme: FloatingActionButtonThemeData(
+        //     backgroundColor: AppTheme.of(context).primary,
+        //   ),
+        //   scaffoldBackgroundColor: getTheme(theme) == Brightness.dark
+        //       ? null
+        //       : AppTheme.theme(getTheme(theme)).bg1,
+        //   // scaffoldBackgroundColor: Colors.black,
+        // ),
+        themeMode: ThemeMode.system,
+        builder: (context, widget) {
+          return ResponsiveWrapper.builder(
+            ClampingScrollWrapper.builder(context, widget!),
+            defaultScale: true,
+            minWidth: 480,
+            defaultName: MOBILE,
+            breakpoints: const [
+              ResponsiveBreakpoint.resize(
+                480,
+                name: MOBILE,
               ),
-              floatingActionButtonTheme: FloatingActionButtonThemeData(
-                backgroundColor: AppTheme.of(context).primary,
+              ResponsiveBreakpoint.resize(
+                750,
+                name: TABLET,
               ),
-              scaffoldBackgroundColor: AppTheme.theme(getTheme(theme)).bg1,
+              ResponsiveBreakpoint.resize(
+                1000,
+                name: DESKTOP,
+              ),
+            ],
+            background: Container(
+              color: AppTheme.theme(getTheme(0)).bg1,
             ),
-            darkTheme: ThemeData(
-              primarySwatch: materialColor,
-              brightness: getTheme(theme),
-              fontFamily: TextStyles.poppins.fontFamily,
-              bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                backgroundColor: getTheme(theme) == Brightness.dark
-                    ? Colors.black
-                    : Colors.white,
-              ),
-              floatingActionButtonTheme: FloatingActionButtonThemeData(
-                backgroundColor: AppTheme.of(context).primary,
-              ),
-              scaffoldBackgroundColor: getTheme(theme) == Brightness.dark
-                  ? null
-                  : AppTheme.theme(getTheme(theme)).bg1,
-              // scaffoldBackgroundColor: Colors.black,
-            ),
-            themeMode: ThemeMode.system,
-            builder: (context, widget) {
-              return ResponsiveWrapper.builder(
-                ClampingScrollWrapper.builder(context, widget!),
-                defaultScale: true,
-                minWidth: 480,
-                defaultName: MOBILE,
-                breakpoints: const [
-                  ResponsiveBreakpoint.resize(
-                    480,
-                    name: MOBILE,
-                  ),
-                  ResponsiveBreakpoint.resize(
-                    750,
-                    name: TABLET,
-                  ),
-                  ResponsiveBreakpoint.resize(
-                    1000,
-                    name: DESKTOP,
-                  ),
-                ],
-                background: Container(
-                  color: AppTheme.theme(getTheme(theme)).bg1,
-                ),
-              );
-            },
-            routeInformationProvider: router.routeInformationProvider,
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
           );
         },
+        routeInformationProvider: router.routeInformationProvider,
+        routeInformationParser: router.routeInformationParser,
+        routerDelegate: router.routerDelegate,
       ),
       builder: (context, child) {
         return child!;
