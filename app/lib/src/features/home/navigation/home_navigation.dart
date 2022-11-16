@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:magic/src/features/home/model/workout_model.dart';
 import 'package:magic/src/features/home/screens/create_workout_screen.dart';
 import 'package:magic/src/features/home/screens/home_screen.dart';
 import 'package:magic/src/features/home/screens/profile_screen.dart';
@@ -28,7 +29,9 @@ final homeNavigation = <GoRoute>[
         path: 'workout/:id',
         pageBuilder: (context, state) => MaterialPage(
           key: state.pageKey,
-          child: const WorkoutDetailScreen(),
+          child: WorkoutDetailScreen(
+            workoutModel: state.extra as WorkoutModel, 
+          ),
         ),
       ),
     ],

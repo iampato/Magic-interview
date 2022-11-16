@@ -1,14 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:magic/src/core/core.dart';
+import 'package:magic/src/features/home/model/workout_model.dart';
 
 class WorkoutDetailScreen extends StatefulWidget {
-  const WorkoutDetailScreen({Key? key}) : super(key: key);
+  final WorkoutModel workoutModel;
+  const WorkoutDetailScreen({
+    Key? key,
+    required this.workoutModel,
+  }) : super(key: key);
 
   @override
   State<WorkoutDetailScreen> createState() => _WorkoutDetailScreenState();
 }
 
 class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
+  WorkoutModel get workoutModel => widget.workoutModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +45,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               flexibleSpace: FlexibleSpaceBar(
                 // expandedTitleScale: 2.2,
                 title: Image.asset(
-                  "assets/workouts/bench-press.gif",
+                  "assets/workouts/${workoutModel.type}.gif",
                   height: Adapt.setHeight(90),
                 ),
                 centerTitle: true,
@@ -55,7 +64,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               const Divider(),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text("Bench press"),
+                title: Text(workoutModel.type),
                 subtitle: Text(
                   "Type of exercise",
                   style: TextStyles.body3,
@@ -64,7 +73,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text("12"),
+                title: Text(workoutModel.noOfSets.toString()),
                 subtitle: Text(
                   "No. of sets",
                   style: TextStyles.body3,
@@ -73,7 +82,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text("100 lbs"),
+                title: Text("${workoutModel.weight} lbs"),
                 subtitle: Text(
                   "Weight used",
                   style: TextStyles.body3,
@@ -82,7 +91,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text("3"),
+                title: Text(workoutModel.noOfReps.toString()),
                 subtitle: Text(
                   "No. of reps performed per set",
                   style: TextStyles.body3,
@@ -91,7 +100,9 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text("12/11/2022 12:00 PM"),
+                title: Text(
+                  DateFormat.yMMMEd().format(workoutModel.dateCreatedAt),
+                ),
                 subtitle: Text(
                   "Date and time of the workout",
                   style: TextStyles.body3,

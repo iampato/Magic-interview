@@ -209,7 +209,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   onTap: () {
                                     context.pushNamed(
                                       'workout_detail',
-                                      params: {'id': "123"},
+                                      params: {'id': e.id},
+                                      extra: e
                                     );
                                   },
                                   child: Padding(
