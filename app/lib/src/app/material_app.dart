@@ -22,7 +22,8 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp.router(
-            title: 'Slam App, Swipe your way',
+            title: 'Magic App',
+            //debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: materialColor,
               brightness: getTheme(theme),
