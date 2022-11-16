@@ -14,6 +14,8 @@
 * [equatable](https://pub.dev/packages/equatable) 
 * [Logger](https://pub.dev/packages/logger) - for safe and beautiful logs
 
+### Improvements that could be made
+1. Adding of tests
 
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
