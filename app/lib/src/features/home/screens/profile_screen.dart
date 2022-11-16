@@ -84,23 +84,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundColor:
                       AppTheme.of(context).primary?.withOpacity(0.2),
                   child: Icon(
-                    Icons.edit,
-                    color: AppTheme.of(context).primary,
-                  ),
-                ),
-                title: const Text("Edit profile"),
-                subtitle: Text(
-                  "Update your profile",
-                  style: TextStyles.body4,
-                ),
-                trailing: const Icon(Icons.chevron_right),
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: CircleAvatar(
-                  backgroundColor:
-                      AppTheme.of(context).primary?.withOpacity(0.2),
-                  child: Icon(
                     Icons.info_outline,
                     color: AppTheme.of(context).primary,
                   ),
@@ -111,6 +94,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextStyles.body4,
                 ),
                 trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("To do redirect to agreement"),
+                    ),
+                  );
+                },
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
@@ -128,6 +118,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextStyles.body4,
                 ),
                 trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("To do add share plugin"),
+                    ),
+                  );
+                },
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
@@ -145,6 +142,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: TextStyles.body4,
                 ),
                 trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("To do redirect to contact us"),
+                    ),
+                  );
+                },
               ),
               ListTile(
                 onTap: () {
@@ -168,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 trailing: const Icon(Icons.chevron_right),
               ),
-              SizedBox(height: Adapt.setHeight(20)),
+              SizedBox(height: Adapt.setHeight(60)),
               Center(
                   child: Text(
                 "MAGIC",
@@ -177,7 +181,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const AnimatedOpacity(
                 opacity: 0.6,
                 duration: Durations.fast,
-                child: Center(child: Text("v 1.0.0")),
+                child: Center(child: Text("v 1.0.0 (001)")),
+              ),
+              const AnimatedOpacity(
+                opacity: 0.6,
+                duration: Durations.fast,
+                child: Center(child: Text("Copyright @ 2022")),
               ),
             ],
           ),
