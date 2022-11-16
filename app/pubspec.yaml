@@ -29,6 +29,9 @@ dependencies:
   sticky_headers: ^0.3.0+2
 
 dev_dependencies:
+  dio_http_formatter:
+  http_mock_adapter:
+  mocktail:
   analyzer: ^4.2.0
   bloc_test: ^9.0.2
   build_runner: ^2.0.6
