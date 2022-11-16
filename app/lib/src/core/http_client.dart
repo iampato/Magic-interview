@@ -161,68 +161,6 @@ class HttpNetworkUtil {
         return handler.next(e);
       },
     ));
-    // String token = await PreferencesRepository().getToken();
-    // dio.interceptors.add(DioFirebasePerformanceInterceptor());
-    // dio.interceptors.add(
-    //   InterceptorsWrapper(
-    //     onRequest: (request, handler) {
-    //       if (token != '') request.headers['x-access-token'] = token;
-    //       return handler.next(request);
-    //     },
-    //     onResponse: (response, handler) {
-    //       return handler.next(response);
-    //     },
-    //     onError: (err, handler) async {
-    //       if (err.response?.statusCode == 401) {
-    //         try {
-    //           _logger.e('401 error');
-    //           dio.interceptors.requestLock.lock();
-    //           dio.interceptors.errorLock.lock();
-    //           dio.interceptors.responseLock.lock();
-    //           final newToken = await specialRefresh();
-
-    //           if (newToken != null) {
-    //             await PreferencesRepository().setToken(newToken);
-    //             err.requestOptions.headers['x-access-token'] = newToken;
-    //             final opts = Options(
-    //               method: err.requestOptions.method,
-    //               headers: err.requestOptions.headers,
-    //             );
-    //             BaseOptions baseOptions = BaseOptions(
-    //               baseUrl: "https://nilipie.ml",
-    //               receiveDataWhenStatusError: true,
-    //               headers: <String, dynamic>{
-    //                 'x-access-token': newToken,
-    //               },
-    //             );
-
-    //             Dio _dio = Dio(baseOptions);
-    //             _logger.i(
-    //               "Special request :\nendpoint: /refresh_token\n",
-    //             );
-    //             final cloneReq = await _dio.request(
-    //               err.requestOptions.path,
-    //               options: opts,
-    //               data: err.requestOptions.data,
-    //               queryParameters: err.requestOptions.queryParameters,
-    //             );
-    //             dio.interceptors.requestLock.unlock();
-    //             dio.interceptors.errorLock.unlock();
-    //             dio.interceptors.responseLock.unlock();
-
-    //             return handler.resolve(cloneReq);
-    //           } else {
-    //             return handler.reject(err);
-    //           }
-    //         } catch (e) {
-    //           return handler.reject(err);
-    //         }
-    //       } else {
-    //         return handler.next(err);
-    //       }
-    //     },
-    //   ),
-    // );
     return dio;
   }
 }
