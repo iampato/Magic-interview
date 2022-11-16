@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:magic/src/core/shared_preference.dart';
 import 'package:magic/src/features/home/model/create_workout_request.dart';
@@ -27,8 +28,31 @@ class ListWorkoutCubit extends Cubit<ListWorkoutState> {
       UserModel user = UserModel.fromJson(userMap);
       final workoutResponse = await workoutRepo.getMyWorkouts(userId: user.id);
       emit(ListWorkoutState.success(workoutResponse: workoutResponse));
-    } catch (e) {
-      emit(ListWorkoutState.error(message: e.toString()));
+    } catch (e, _) {
+      if (e is DioError) {
+        if (e.type == DioErrorType.connectTimeout ||
+            e.type == DioErrorType.other) {
+          emit(const ListWorkoutState.error(
+              message: "Check your internet connection"));
+        } else if (e.response?.statusCode == 400) {
+          emit(
+            ListWorkoutState.error(message: e.response?.data),
+          );
+        } else if (e.response?.statusCode == 401) {
+          emit(
+            ListWorkoutState.error(message: e.response?.data),
+          );
+        } else if (e.response?.statusCode == 500) {
+          final message = e.response?.data['message'];
+          emit(
+            ListWorkoutState.error(message: message),
+          );
+        } else {
+          emit(const ListWorkoutState.error(message: "An error occured"));
+        }
+      } else {
+        emit(ListWorkoutState.error(message: e.toString()));
+      }
     }
   }
 
