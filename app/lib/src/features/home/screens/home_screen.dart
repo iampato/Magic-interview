@@ -23,10 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final user = context.watch<AuthenticationCubit>().user;
 
     return BlocProvider(
-      create: (context) => context.read<ListWorkoutCubit>()
-        ..getMyWorkouts(
-          userId: user!.id,
-        ),
+      create: (context) => context.read<ListWorkoutCubit>()..getMyWorkouts(),
       child: Scaffold(
         backgroundColor: AppTheme.of(context).surface,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -110,7 +107,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ];
           },
-          body: BlocBuilder<ListWorkoutCubit, ListWorkoutState>(
+          body: BlocConsumer<ListWorkoutCubit, ListWorkoutState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                orElse: () {},
+                success: (_, __, message) {
+                  if (message != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(message),
+                      ),
+                    );
+                  }
+                },
+              );
+            },
             builder: (context, state) {
               return state.when(
                 initial: () {
@@ -122,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-                success: (workoutResponse) {
+                success: (_, workoutResponse, __) {
                   if (workoutResponse.isEmpty || workoutResponse == null) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,

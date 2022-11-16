@@ -36,6 +36,7 @@ Widget setupProviders(Widget child) {
       BlocProvider(
         create: (context) => ListWorkoutCubit(
           workoutRepo: context.read<WorkoutRepository>(),
+          preferenceRepo: context.read<SharedPreferenceRepo>(),
         ),
       ),
     ],

@@ -19,21 +19,27 @@ mixin _$ListWorkoutState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<WorkoutResponse?> workoutResponse) success,
+    required TResult Function(bool? isLoading,
+            List<WorkoutResponse?> workoutResponse, String? message)
+        success,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<WorkoutResponse?> workoutResponse)? success,
+    TResult? Function(bool? isLoading, List<WorkoutResponse?> workoutResponse,
+            String? message)?
+        success,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<WorkoutResponse?> workoutResponse)? success,
+    TResult Function(bool? isLoading, List<WorkoutResponse?> workoutResponse,
+            String? message)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -118,7 +124,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<WorkoutResponse?> workoutResponse) success,
+    required TResult Function(bool? isLoading,
+            List<WorkoutResponse?> workoutResponse, String? message)
+        success,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -128,7 +136,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<WorkoutResponse?> workoutResponse)? success,
+    TResult? Function(bool? isLoading, List<WorkoutResponse?> workoutResponse,
+            String? message)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -138,7 +148,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<WorkoutResponse?> workoutResponse)? success,
+    TResult Function(bool? isLoading, List<WorkoutResponse?> workoutResponse,
+            String? message)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -193,7 +205,10 @@ abstract class _$$_SuccessCopyWith<$Res> {
           _$_Success value, $Res Function(_$_Success) then) =
       __$$_SuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<WorkoutResponse?> workoutResponse});
+  $Res call(
+      {bool? isLoading,
+      List<WorkoutResponse?> workoutResponse,
+      String? message});
 }
 
 /// @nodoc
@@ -206,13 +221,23 @@ class __$$_SuccessCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = freezed,
     Object? workoutResponse = null,
+    Object? message = freezed,
   }) {
     return _then(_$_Success(
+      isLoading: freezed == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool?,
       workoutResponse: null == workoutResponse
           ? _value._workoutResponse
           : workoutResponse // ignore: cast_nullable_to_non_nullable
               as List<WorkoutResponse?>,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -220,9 +245,14 @@ class __$$_SuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Success implements _Success {
-  const _$_Success({required final List<WorkoutResponse?> workoutResponse})
+  const _$_Success(
+      {this.isLoading,
+      required final List<WorkoutResponse?> workoutResponse,
+      this.message})
       : _workoutResponse = workoutResponse;
 
+  @override
+  final bool? isLoading;
   final List<WorkoutResponse?> _workoutResponse;
   @override
   List<WorkoutResponse?> get workoutResponse {
@@ -231,8 +261,11 @@ class _$_Success implements _Success {
   }
 
   @override
+  final String? message;
+
+  @override
   String toString() {
-    return 'ListWorkoutState.success(workoutResponse: $workoutResponse)';
+    return 'ListWorkoutState.success(isLoading: $isLoading, workoutResponse: $workoutResponse, message: $message)';
   }
 
   @override
@@ -240,13 +273,16 @@ class _$_Success implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Success &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             const DeepCollectionEquality()
-                .equals(other._workoutResponse, _workoutResponse));
+                .equals(other._workoutResponse, _workoutResponse) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_workoutResponse));
+  int get hashCode => Object.hash(runtimeType, isLoading,
+      const DeepCollectionEquality().hash(_workoutResponse), message);
 
   @JsonKey(ignore: true)
   @override
@@ -258,32 +294,38 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<WorkoutResponse?> workoutResponse) success,
+    required TResult Function(bool? isLoading,
+            List<WorkoutResponse?> workoutResponse, String? message)
+        success,
     required TResult Function(String message) error,
   }) {
-    return success(workoutResponse);
+    return success(isLoading, workoutResponse, message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<WorkoutResponse?> workoutResponse)? success,
+    TResult? Function(bool? isLoading, List<WorkoutResponse?> workoutResponse,
+            String? message)?
+        success,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(workoutResponse);
+    return success?.call(isLoading, workoutResponse, message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<WorkoutResponse?> workoutResponse)? success,
+    TResult Function(bool? isLoading, List<WorkoutResponse?> workoutResponse,
+            String? message)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(workoutResponse);
+      return success(isLoading, workoutResponse, message);
     }
     return orElse();
   }
@@ -325,9 +367,13 @@ class _$_Success implements _Success {
 
 abstract class _Success implements ListWorkoutState {
   const factory _Success(
-      {required final List<WorkoutResponse?> workoutResponse}) = _$_Success;
+      {final bool? isLoading,
+      required final List<WorkoutResponse?> workoutResponse,
+      final String? message}) = _$_Success;
 
+  bool? get isLoading;
   List<WorkoutResponse?> get workoutResponse;
+  String? get message;
   @JsonKey(ignore: true)
   _$$_SuccessCopyWith<_$_Success> get copyWith =>
       throw _privateConstructorUsedError;
@@ -396,7 +442,9 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<WorkoutResponse?> workoutResponse) success,
+    required TResult Function(bool? isLoading,
+            List<WorkoutResponse?> workoutResponse, String? message)
+        success,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -406,7 +454,9 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<WorkoutResponse?> workoutResponse)? success,
+    TResult? Function(bool? isLoading, List<WorkoutResponse?> workoutResponse,
+            String? message)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -416,7 +466,9 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<WorkoutResponse?> workoutResponse)? success,
+    TResult Function(bool? isLoading, List<WorkoutResponse?> workoutResponse,
+            String? message)?
+        success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
