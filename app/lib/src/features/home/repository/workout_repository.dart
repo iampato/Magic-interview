@@ -2,23 +2,27 @@ import 'package:dio/dio.dart';
 import 'package:magic/src/core/http_client.dart';
 import 'package:magic/src/features/home/model/workout_model.dart';
 import 'package:magic/src/features/home/model/workout_response.dart';
-import 'package:magic/src/features/home/screens/create_workout_screen.dart';
-import 'package:magic/src/features/landing/models/user_model.dart';
 
 class WorkoutRepository {
   // global variables
   final HttpNetworkUtil _httpNetworkUtil = HttpNetworkUtil();
 
-  Future<WorkoutResponse?> getMyWorkouts({
+  Future<List<WorkoutResponse?>> getMyWorkouts({
     required String userId,
   }) async {
     String endpoint = "workout/$userId";
     try {
       Response response = await _httpNetworkUtil.getRequest(endpoint);
       if (response.statusCode == 200) {
-        return WorkoutResponse.fromJson(response.data);
+        List<WorkoutResponse> workoutResponse = List<WorkoutResponse>.from(
+          response.data.map(
+            (x) => WorkoutResponse.fromJson(x),
+          ),
+        );
+        return workoutResponse;
+        // return WorkoutResponse.fromJson(response.data);
       } else {
-        return null;
+        return [];
       }
     } catch (e) {
       rethrow;
