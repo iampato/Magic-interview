@@ -123,5 +123,4 @@ lib/
    - Home - this houses the list of workout screens, profile screens, create workout, workout details screens and all the accompanying logic to support this module
 
 ## Improvements that could be made
-1. Adding of more tests
-2. Maybe the UI requires an upgrade
+1. Adding of more tests (time constraints)
